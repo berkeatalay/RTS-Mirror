@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  health: {fileID: 774191229939225743}
   unitPf: {fileID: 8989358184887107210, guid: 773b3d96634d0f1458e6554bb31f836a, type: 3}
   unitSpawnPoint: {fileID: 848492965632017177}
 --- !u!114 &6029561085097617348

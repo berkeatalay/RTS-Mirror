@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Health : NetworkBehaviour
 {
+
     [SerializeField] private int maxHealth = 100;
 
     [SyncVar(hook = nameof(HandleHealthUpdated))]
@@ -31,8 +32,6 @@ public class Health : NetworkBehaviour
         if (currentHealth != 0) return;
 
         ServerOnDie?.Invoke();
-        Debug.Log("We are dead");
-
     }
     #endregion
 

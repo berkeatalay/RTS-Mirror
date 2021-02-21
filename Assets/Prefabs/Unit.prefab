@@ -276,6 +276,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   unitMovement: {fileID: 7983451387391890240}
+  health: {fileID: 5738832572890257960}
   targeter: {fileID: 3238900139524168135}
   onSelected:
     m_PersistentCalls:
@@ -383,6 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  health: {fileID: 0}
   maxHealth: 100
 --- !u!114 &4806716553408625686
 MonoBehaviour:
