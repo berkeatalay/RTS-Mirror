@@ -104,6 +104,7 @@ public class UnitSelectionHandler : MonoBehaviour
         {
 
             if (SelectedUnits.Contains(unit)) continue;
+
             Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
 
             if (screenPosition.x > min.x && screenPosition.x < max.x && screenPosition.y > min.y && screenPosition.y < max.y)

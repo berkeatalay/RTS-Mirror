@@ -7,9 +7,10 @@ using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
-    [SerializeField] UnitMovement unitMovement = null;
-    [SerializeField] UnityEvent onSelected = null;
-    [SerializeField] UnityEvent onDeSelected = null;
+    [SerializeField] private UnitMovement unitMovement = null;
+    [SerializeField] private Targeter targeter = null;
+    [SerializeField] private UnityEvent onSelected = null;
+    [SerializeField] private UnityEvent onDeSelected = null;
 
     public static event Action<Unit> serverOnUnitSpawned;
     public static event Action<Unit> serverOnUnitDespawned;
@@ -21,6 +22,13 @@ public class Unit : NetworkBehaviour
     {
         return unitMovement;
     }
+
+    public Targeter GetTargeter()
+    {
+        return targeter;
+    }
+
+
     #region Server
     public override void OnStartServer()
     {
