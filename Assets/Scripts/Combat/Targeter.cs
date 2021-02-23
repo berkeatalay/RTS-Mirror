@@ -24,11 +24,6 @@ public class Targeter : NetworkBehaviour
         GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
     }
 
-    private void ServerHandleGameOver()
-    {
-        ClearTarget();
-    }
-
     [Command]
     public void CmdSetTarget(GameObject targetGameObject)
     {
@@ -36,6 +31,12 @@ public class Targeter : NetworkBehaviour
         if (!targetGameObject.TryGetComponent<Targetable>(out Targetable newTarget)) return;
 
         target = newTarget;
+    }
+
+    [Server]
+    private void ServerHandleGameOver()
+    {
+        ClearTarget();
     }
 
     [Server]

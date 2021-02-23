@@ -27,8 +27,7 @@ public class Health : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        base.OnStopServer();
-        UnitBase.ServerOnPlayerDie += ServerHandlePlayerDie;
+        UnitBase.ServerOnPlayerDie -= ServerHandlePlayerDie;
     }
 
     [Server]

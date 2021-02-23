@@ -23,8 +23,10 @@ public class UnitBase : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        health.ServerOnDie -= ServerHandleDie;
         ServerOnBaseDespawned?.Invoke(this);
+
+        health.ServerOnDie -= ServerHandleDie;
+
     }
 
     [Server]

@@ -28,11 +28,11 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     [Server]
     private void ServerHandleDie()
     {
-        //NetworkServer.Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
     }
 
     [Command]
-    void CmdSpawnUnit()
+    private void CmdSpawnUnit()
     {
         GameObject unitInstance = Instantiate(unitPf, unitSpawnPoint.position, unitSpawnPoint.rotation);
 

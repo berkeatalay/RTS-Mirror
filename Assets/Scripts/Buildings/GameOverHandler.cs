@@ -41,13 +41,16 @@ public class GameOverHandler : NetworkBehaviour
         ServerOnGameOver?.Invoke();
 
     }
+
     #endregion
 
     #region Clients
+
     [ClientRpc]
     private void RpcGameOver(string winner)
     {
         ClientOnGameOver?.Invoke(winner);
     }
+
     #endregion
 }
