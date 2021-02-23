@@ -6,18 +6,26 @@ using UnityEngine.InputSystem;
 
 public class UnitCommandGiver : MonoBehaviour
 {
-    [SerializeField] UnitSelectionHandler unitSelectionHandler = null;
-    [SerializeField] LayerMask layerMask = new LayerMask();
+    [SerializeField] private UnitSelectionHandler unitSelectionHandler = null;
+    [SerializeField] private LayerMask layerMask = new LayerMask();
 
-    Camera mainCamera;
+    private Camera mainCamera;
 
 
-    void Start()
+    private void Start()
     {
         mainCamera = Camera.main;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
     }
 
-    void Update()
+    private void OnDestroy()
+    {
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
+    }
+
+
+
+    private void Update()
     {
         if (!Mouse.current.rightButton.wasPressedThisFrame) return;
 
@@ -46,7 +54,7 @@ public class UnitCommandGiver : MonoBehaviour
         TryMove(hit.point);
     }
 
-    void TryMove(Vector3 point)
+    private void TryMove(Vector3 point)
     {
         foreach (Unit unit in unitSelectionHandler.SelectedUnits)
         {
@@ -54,11 +62,16 @@ public class UnitCommandGiver : MonoBehaviour
         }
     }
 
-    void TryTarget(Targetable target)
+    private void TryTarget(Targetable target)
     {
         foreach (Unit unit in unitSelectionHandler.SelectedUnits)
         {
             unit.GetTargeter().CmdSetTarget(target.gameObject);
         }
+    }
+
+    private void ClientHandleGameOver(string winnerName)
+    {
+        enabled = false;
     }
 }

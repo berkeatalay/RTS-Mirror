@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Mirror;
+using System;
 
 public class UnitMovement : NetworkBehaviour
 {
@@ -10,6 +11,18 @@ public class UnitMovement : NetworkBehaviour
     [SerializeField] private float chaseDistance = 10f;
 
     #region Server
+
+    public override void OnStartServer()
+    {
+        GameOverHandler.ClientOnGameOver += ServerHandleGameOver;
+    }
+
+    public override void OnStopServer()
+    {
+        GameOverHandler.ClientOnGameOver -= ServerHandleGameOver;
+    }
+
+
 
     [ServerCallback]
     private void Update()
@@ -44,10 +57,13 @@ public class UnitMovement : NetworkBehaviour
 
         agent.SetDestination(position);
     }
+
+    private void ServerHandleGameOver(string obj)
+    {
+        agent.ResetPath();
+    }
+
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, chaseDistance);
-    }
+
 }
