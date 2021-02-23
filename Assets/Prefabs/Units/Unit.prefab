@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 8850421285415038448}
   - component: {fileID: 5738832572890257960}
   - component: {fileID: 4806716553408625686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  health: {fileID: 0}
   maxHealth: 100
 --- !u!114 &4806716553408625686
 MonoBehaviour:
