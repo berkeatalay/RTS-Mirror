@@ -14,23 +14,28 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     [SerializeField] private TMP_Text priceText = null;
     [SerializeField] private LayerMask floorMask = new LayerMask();
 
+    private BoxCollider buildingCollider;
     private Camera mainCamera;
     private RTSPlayer player;
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
+
+
     private void Start()
     {
         mainCamera = Camera.main;
+
+        iconImage.sprite = building.GetIcon();
+        priceText.text = building.GetPrice().ToString();
+
+        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+
+        buildingCollider = building.GetComponent<BoxCollider>();
     }
 
     private void Update()
     {
-        if (player == null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        }
-
         if (buildingPreviewInstance == null) return;
 
         UpdateBuildingPreview();
@@ -39,6 +44,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        if (player.GetResources() < building.GetPrice()) return;
 
         buildingPreviewInstance = Instantiate(building.BuildingPreview());
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
@@ -68,7 +75,13 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         buildingPreviewInstance.transform.position = hit.point;
 
-        if (!buildingPreviewInstance.activeSelf) buildingPreviewInstance.SetActive(true);
+        if (!buildingPreviewInstance.activeSelf)
+        {
+            buildingPreviewInstance.SetActive(true);
+        }
 
-    }
-}
+        Color color = player.CanPlaceBuilding(buildingCollider, hit.point) ? Color.green : Color.red;
+        buildingRendererInstance.material.SetColor("_BaseColor", color);
+    }       
+   }
+

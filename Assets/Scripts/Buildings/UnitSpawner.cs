@@ -33,13 +33,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
         {
             updateTimerDisplay();
         }
-        if (player == null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        }
     }
-
-
 
     #region  Server
 
@@ -94,7 +88,6 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
         queuedUnits++;
         player.SetResources(player.GetResources() - unitPf.GetResourceCost());
     }
-
 
     #endregion
 
